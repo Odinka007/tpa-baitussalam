@@ -9,7 +9,7 @@ class Nilai extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['santri_id', 'mata_pelajaran', 'nilai'];
+    protected $fillable = ['santri_id', 'matapelajaran_id', 'nilai'];
 
     public function santri()
 {

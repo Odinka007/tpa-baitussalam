@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('santri_id')->constrained('datasantris')->onDelete('cascade');
             $table->foreignId('matapelajaran_id')->constrained('matapelajarans')->onDelete('cascade');
-            $table->string('nilai');
+            $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('cascade');
+            $table->integer('nilai');
             $table->timestamps();
         });
         

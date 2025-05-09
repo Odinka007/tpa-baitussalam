@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('datasantris', function (Blueprint $table) {
             $table->id();
             $table->string('nama_santri');
-            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
-            $table->text('alamat')->nullable();
+            $table->enum('jenis_kelamin', ['Laki-Laki','Perempuan']);
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
+            $table->string('nama_orang_tua');
+            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
+            $table->text('alamat')->nullable();
+            $table->text('bakat_prestasi')->nullable();
             $table->timestamps();
         });
         

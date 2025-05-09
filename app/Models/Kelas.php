@@ -12,9 +12,9 @@ class Kelas extends Model
     return $this->hasMany(Datasantri::class, 'kelas_id');
 }
 
-public function mataPelajarans()
+    public function mataPelajarans()
 {
-    return $this->belongsToMany(MataPelajaran::class, 'kelas_mata_pelajaran', 'kelas_id', 'mata_pelajaran_id');
+    return $this->hasMany(Matapelajaran::class);
 }
 
 

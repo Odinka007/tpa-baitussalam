@@ -14,24 +14,63 @@ class MatapelajaranSeeder extends Seeder
      */
     public function run()
     {
-        // Buat data mata pelajaran
+        // Buat data mata pelajaran untuk masing-masing kelas dengan nama yang berbeda
         $mataPelajaran = [
-            'PAUD' => ['Bacaan Al-Quran', 'Menulis', 'Praktek Wudhu'],
-            'A1' => ['Bacaan Al-Quran', 'Praktek Sholat Wajib', 'Hafalan Surat Pendek'],
-            'A2' => ['Asmaul Husna', 'Menulis', 'Hafalan Surat Pendek'],
-            'A3' => ['Bacaan Al-Quran', 'Praktek Sholat Wajib', 'Materi Tambahan']
+            'PAUD' => [
+                'Bacaan Iqro Jilid 1', 
+                'Menulis', 
+                'Praktek Wudhu', 
+                'Praktek Sholat Wajib', 
+                'Asmaul Husna 1-10', 
+                'Hafalan Surat Pendek', 
+                'Doa-Doa', 
+                'Materi Tambahan'
+            ],
+            'A1' => [
+                'Bacaan Iqro Jilid 2', 
+                'Menulis',  
+                'Praktek Wudhu', 
+                'Praktek Sholat Wajib', 
+                'Asmaul Husna 1-20', 
+                'Hafalan Surat Pendek', 
+                'Doa-Doa', 
+                'Materi Tambahan'
+            ],
+            'A2' => [
+                'Bacaan Iqro Jilid 3', 
+                'Menulis Pegon', 
+                'Praktek Wudhu', 
+                'Praktek Sholat Wajib', 
+                'Asmaul Husna 1-30', 
+                'Hafalan Surat Pendek', 
+                'Doa-Doa', 
+                'Materi Tambahan'
+            ],
+            'A3' => [
+                'Bacaan Iqro Jilid 4', 
+                'Menulis Pegon', 
+                'Praktek Wudhu', 
+                'Praktek Sholat Wajib', 
+                'Asmaul Husna 1-30', 
+                'Hafalan Surat Pendek', 
+                'Doa-Doa', 
+                'Materi Tambahan'
+            ]
         ];
 
         foreach ($mataPelajaran as $kelasName => $mataPelajaranList) {
-            // Ambil kelas
+            // Ambil kelas berdasarkan nama kelas
             $kelas = Kelas::where('nama_kelas', $kelasName)->first();
 
-            // Ambil mata pelajaran dan hubungkan ke kelas
-            foreach ($mataPelajaranList as $nama) {
-                $mataPelajaran = MataPelajaran::firstOrCreate(['nama_matapelajaran' => $nama]);
-                $kelas->mataPelajarans()->attach($mataPelajaran);
+            // Pastikan kelas ditemukan sebelum melanjutkan
+            if ($kelas) {
+                // Ambil mata pelajaran dan hubungkan ke kelas
+                foreach ($mataPelajaranList as $nama) {
+                    // Cek apakah mata pelajaran sudah ada, jika tidak buat baru
+                    $mataPelajaran = MataPelajaran::firstOrCreate(['nama_matapelajaran' => $nama,
+                    'kelas_id' => $kelas->id,]);
+                }
             }
         }
     }
 }
-

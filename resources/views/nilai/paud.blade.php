@@ -1,101 +1,67 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Nilai Santri PAUD</title>
-    <!-- Include Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+@extends('layouts.app')
 
-<div class="container mt-4">
-    <h1>Nilai Santri Kelas PAUD</h1>
+@section('content')
+<div class="container py-4">
+    <h1 class="mb-4">Nilai Santri Kelas PAUD</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nama Santri</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($santris as $santri)
-                <tr>
-                    <td>{{ $santri->nama_santri }}</td>
-                    <td>
-                        <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#nilaiModal" data-nama="{{ $santri->nama_santri }}" data-nilai="{{ json_encode($santri->nilai) }}">
-                            Lihat Nilai
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nama Santri</th>
+                        <th style="width: 150px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($datasantris as $santri)
+                        <tr>
+                            <td>{{ $santri->nama_santri }}</td>
+                            <td>
+                                <button 
+                                    class="btn btn-info btn-sm" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#lihatNilaiModal{{ $santri->id }}">
+                                    <i class="bi bi-eye"></i> Lihat Nilai
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="nilaiModal" tabindex="-1" aria-labelledby="nilaiModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="nilaiModalLabel">Nilai Santri</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Nama Santri: </strong><span id="santriNama"></span></p>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Mata Pelajaran</th>
-                                <th>Nilai</th>
-                            </tr>
-                        </thead>
-                        <tbody id="nilaiList">
-                            <!-- Nilai akan dimuat di sini -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    {{-- Modal untuk setiap santri --}}
+    @foreach($datasantris as $santri)
+        <div class="modal fade" id="lihatNilaiModal{{ $santri->id }}" tabindex="-1" aria-labelledby="lihatNilaiLabel{{ $santri->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content shadow">
+                    <div class="modal-header bg-info text-white">
+                        <h5 class="modal-title" id="lihatNilaiLabel{{ $santri->id }}">📋 Nilai: {{ $santri->nama_santri }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            @foreach($matapelajaran as $mapel)
+                                @php
+                                    $nilai = $santri->nilai->where('matapelajaran_id', $mapel->id)->first();
+                                @endphp
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ $mapel->nama_matapelajaran }}
+                                    <span class="badge bg-primary rounded-pill">
+                                        {{ $nilai->nilai ?? 'Belum Diinput' }}
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 </div>
-
-<!-- Include Bootstrap JS and Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
-<script>
-    // Menggunakan JavaScript untuk memuat data ke dalam modal
-    var nilaiModal = document.getElementById('nilaiModal');
-    nilaiModal.addEventListener('show.bs.modal', function (event) {
-        // Ambil button yang memicu modal
-        var button = event.relatedTarget;
-
-        // Ambil data dari button
-        var namaSantri = button.getAttribute('data-nama');
-        var nilaiData = JSON.parse(button.getAttribute('data-nilai'));
-
-        // Update modal dengan data santri dan nilai
-        var modalNama = document.getElementById('santriNama');
-        var modalNilaiList = document.getElementById('nilaiList');
-
-        modalNama.textContent = namaSantri;
-
-        // Kosongkan daftar nilai sebelumnya
-        modalNilaiList.innerHTML = '';
-
-        // Tambahkan nilai ke dalam tabel modal
-        nilaiData.forEach(function (nilai) {
-            var row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${nilai.mata_pelajaran}</td>
-                <td>${nilai.nilai}</td>
-            `;
-            modalNilaiList.appendChild(row);
-        });
-    });
-</script>
-
-</body>
-</html>
+@endsection

@@ -24,7 +24,8 @@ class NilaiController extends Controller
         // return view('nilai.index', compact('santris'));
 
         $nilai = Nilai::with('santri')->get();
-        return view('nilai.index', compact('santris', 'nilai'));
+        $kelasList = Kelas::all();
+        return view('nilai.index', compact('nilai', 'kelasList'));
     }
 
     public function create()
@@ -38,6 +39,7 @@ class NilaiController extends Controller
     {
         $validated = $request->validate([
             'santri_id' => 'required|exists:datasantris,id',
+            'kelas_id' => 'required|exists:kelas,id',
             'mata_pelajaran' => 'required|string',
             'nilai' => 'required|numeric',
         ]);
@@ -79,5 +81,19 @@ class NilaiController extends Controller
 
         return redirect()->route('nilai.index')->with('success', 'Nilai berhasil dihapus.');
     }
+
+    public function perKelas($id)
+{
+    $kelas = Kelas::with('santri.nilai')->findOrFail($id);
+    $kelasList = Kelas::all(); // Untuk navigasi kelas
+
+    // Ambil semua nilai dari santri di kelas ini
+    $nilai = \App\Models\Nilai::whereHas('santri', function ($q) use ($id) {
+        $q->where('kelas_id', $id);
+    })->with('santri')->get();
+
+    return view('nilai.index', compact('nilai', 'kelasList', 'kelas'));
+}
+
 
 }

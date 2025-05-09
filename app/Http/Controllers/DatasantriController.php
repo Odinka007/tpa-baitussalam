@@ -6,11 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Datasantri;
 use App\Models\Kelas;
 
+
 class DatasantriController extends Controller
 {
-    public function index()
+    public function index(Request $request)
 {
-    $datasantris = Datasantri::with('kelas')->get(); // relasi ke tabel kelas
+    $query = Datasantri::with('kelas');
+
+    if ($request->has('search') && $request->search != '') {
+        $query->where('nama_santri', 'like', '%' . $request->search . '%');
+    }
+
+    $datasantris = $query->orderBy('nama_santri')->paginate(10);
     return view('datasantri.index', compact('datasantris'));
 }
 
@@ -21,23 +28,31 @@ public function create()
 }
 
 public function store(Request $request)
-    {
-        // Validasi data yang dikirimkan
-        $validated = $request->validate([
-            'nama_santri' => 'required|string|max:255',
-            'kelas_id' => 'required|exists:kelas,id',
-            'alamat' => 'required|string',
-            'tempat_lahir' => 'required|string',
-            'tanggal_lahir' => 'required|date',
-        ]);
-        Datasantri::create($validated);
-        return redirect()->route('datasantri.index');
+{
+    // Validasi data yang dikirimkan
+    $validated = $request->validate([
+        'nama_santri' => 'required|string|max:255',
+        'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
+        'tempat_lahir' => 'required|string|max:255',
+        'tanggal_lahir' => 'required|date',
+        'nama_orang_tua' => 'required|string|max:255',
+        'kelas_id' => 'required|exists:kelas,id',
+        'alamat' => 'nullable|string',
+        'bakat_prestasi' => 'nullable|string',
+    ]);
+
+    // Simpan data
+    \App\Models\Datasantri::create($validated);
+
+    return redirect()->route('datasantri.index')->with('success', 'Data santri berhasil disimpan.');
 }
+
 
 public function edit($id)
     {
         $santri = Datasantri::findOrFail($id);  // Mencari santri berdasarkan id
         $kelas = Kelas::all();  // Mengambil data kelas
+        $santri->tanggal_lahir = \Carbon\Carbon::parse($santri->tanggal_lahir);
         return view('datasantri.edit', compact('santri', 'kelas'));  // Menampilkan form edit
     }
 
@@ -46,17 +61,20 @@ public function edit($id)
         // Validasi data yang dikirimkan
         $validated = $request->validate([
             'nama_santri' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|string',
+            'nama_orang_tua' => 'required|string',
             'kelas_id' => 'required|exists:kelas,id',
-            'alamat' => 'required|string',
-            'tempat_lahir' => 'required|string',
+            'alamat' => 'nullable|string',
+            'tempat_lahir' => 'nullable|string',
             'tanggal_lahir' => 'required|date',
+            'bakat_prestasi' => 'nullable|string',
         ]);
 
         $santri = Datasantri::findOrFail($id);  // Mencari santri berdasarkan id
         $santri->update($validated);  // Update data santri
 
         // Redirect ke halaman daftar santri
-        return redirect()->route('datasantri.index');
+        return redirect()->route('datasantri.index')->with('success', 'Data santri berhasil Diperbarui.');
     }
 
      // Menghapus data santri
@@ -66,7 +84,7 @@ public function edit($id)
          $santri->delete();  // Menghapus data santri
  
          // Redirect ke halaman daftar santri
-         return redirect()->route('datasantri.index');
+         return redirect()->route('datasantri.index')->with('success', 'Berhasil menghapus data');
      }
 
 

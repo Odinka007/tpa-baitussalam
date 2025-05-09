@@ -23,7 +23,8 @@ class NilaiSeeder extends Seeder
                 Nilai::create([
                     'santri_id' => $santri->id,
                     'matapelajaran_id' => $mataPelajaran->id,
-                    'nilai' => ['A', 'B+', 'B', 'C'][array_rand(['A', 'B+', 'B', 'C'])], // Nilai acak
+                    'kelas_id' => $santri->kelas_id,
+                    'nilai' => rand(50, 100), // Nilai acak antara 50 dan 100
                 ]);
             }
         }
