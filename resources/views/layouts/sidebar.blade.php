@@ -20,9 +20,8 @@
 
     <!-- Divider -->
 
-
-
-    <!-- Nav Item - Pages Collapse Menu -->
+    @if(Auth::user()->role == 'admin') <!-- Hanya untuk admin -->
+    <!-- Nav Item - Data Santri -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('datasantri.index') }}">
             <i class="fas fa-fw fa-users"></i>  
@@ -30,6 +29,7 @@
         </a>
     </li>
 
+    <!-- Nav Item - Data Pengajar -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('datasantri.index') }}">
             <i class="fas fa-fw fa-users"></i>  
@@ -43,36 +43,23 @@
             <span>Matapelajaran</span>
         </a>
     </li>
+    @endif
 
+    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'pengajar') <!-- Untuk admin dan pengajar -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('datanilai.index') }}">
             <i class="bi bi-layers-half"></i>
             <span>Data Nilai</span>
         </a>
     </li>
-
+    
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('nilai.index') }}">
             <i class="bi bi-archive-fill"></i>
             <span>Nilai</span>
         </a>
     </li>
-    
-
-    <!-- Nav Item - Utilities Collapse Menu -->
-    
-
-    <!-- Divider -->
-   
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    
-
-    <!-- Nav Item - Charts -->
-    
-
-    <!-- Nav Item - Tables -->
-  
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
@@ -83,5 +70,4 @@
     </div>
 
     <!-- Sidebar Message -->
-
 </ul>

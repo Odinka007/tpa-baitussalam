@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatasantriController;
+use App\Http\Controllers\DataPengajarController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\NilaiPaudController;
 use App\Http\Controllers\NilaiA1Controller;
@@ -18,9 +21,23 @@ use App\Http\Controllers\MataPelajaranA2Controller;
 use App\Http\Controllers\MataPelajaranA3Controller;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('/datasantri', DataSantriController::class);
 });
+
+Route::middleware(['auth', 'role:admin,pengajar'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('nilai', NilaiController::class);
+    Route::resource('datanilai', DataNilaiController::class);
+});
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', function () {
     return view('pages.dashboard');
@@ -33,6 +50,8 @@ Route::post('/datasantri', [DatasantriController::class, 'store'])->name('datasa
 Route::get('/datasantri/{id}/edit', [DatasantriController::class, 'edit'])->name('datasantri.edit');
 Route::put('/datasantri/{id}', [DatasantriController::class, 'update'])->name('datasantri.update');
 Route::delete('/datasantri/{id}', [DatasantriController::class, 'destroy'])->name('datasantri.destroy');
+
+Route::get('/datapengajar', [DataPengajarController::class, 'index'])->name('datapengajar.index');
 
 
 Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
