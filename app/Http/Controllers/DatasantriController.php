@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use App\Models\Datasantri;
 use App\Models\Kelas;
+use Illuminate\Support\Facades\Auth;
+
+
+
 
 
 class DatasantriController extends Controller
 {
     public function index(Request $request)
 {
+    // dd(Auth::user());
     $query = Datasantri::with('kelas');
 
     if ($request->has('search') && $request->search != '') {

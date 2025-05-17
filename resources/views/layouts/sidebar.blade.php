@@ -15,50 +15,69 @@
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('pages.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span class="fs-2">Dashboard</span></a>
+            <span class="fs-2">Dashboard</span>
+        </a>
     </li>
 
     <!-- Divider -->
+    <hr class="sidebar-divider">
 
-    @if(Auth::user()->role == 'admin') <!-- Hanya untuk admin -->
-    <!-- Nav Item - Data Santri -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('datasantri.index') }}">
-            <i class="fas fa-fw fa-users"></i>  
-            <span class="fs-2">Data Santri</span>
-        </a>
-    </li>
+    @if(auth()->user()->role === 'admin')
+        <!-- Nav Item - Data Santri -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('datasantri.index') }}">
+                <i class="fas fa-fw fa-users"></i>  
+                <span class="fs-2">Data Santri</span>
+            </a>
+        </li>
 
-    <!-- Nav Item - Data Pengajar -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('datasantri.index') }}">
-            <i class="fas fa-fw fa-users"></i>  
-            <span>Data Pengajar</span>
-        </a>
-    </li>
+        <!-- Nav Item - Data Pengajar -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('datapengajar.index') }}">
+                <i class="fas fa-fw fa-users"></i>  
+                <span>Data Pengajar</span>
+            </a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('matapelajaran.index') }}">
-            <i class="bi bi-journal-bookmark-fill"></i>
-            <span>Matapelajaran</span>
-        </a>
-    </li>
-    @endif
+        <!-- Nav Item - Mata Pelajaran -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('matapelajaran.index') }}">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                <span>Mata Pelajaran</span>
+            </a>
+        </li>
 
-    @if(Auth::user()->role == 'admin' || Auth::user()->role == 'pengajar') <!-- Untuk admin dan pengajar -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('datanilai.index') }}">
-            <i class="bi bi-layers-half"></i>
-            <span>Data Nilai</span>
-        </a>
-    </li>
-    
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('nilai.index') }}">
-            <i class="bi bi-archive-fill"></i>
-            <span>Nilai</span>
-        </a>
-    </li>
+        <!-- Nav Item - Data Nilai -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('datanilai.index') }}">
+                <i class="bi bi-layers-half"></i>
+                <span>Data Nilai</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Nilai -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('nilai.index') }}">
+                <i class="bi bi-archive-fill"></i>
+                <span>Nilai</span>
+            </a>
+        </li>
+    @elseif(auth()->user()->role === 'pengajar')
+        <!-- Nav Item - Data Nilai -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('datanilai.index') }}">
+                <i class="bi bi-layers-half"></i>
+                <span>Data Nilai</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Nilai -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('nilai.index') }}">
+                <i class="bi bi-archive-fill"></i>
+                <span>Nilai</span>
+            </a>
+        </li>
     @endif
 
     <!-- Divider -->

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatasantriController;
@@ -21,28 +23,33 @@ use App\Http\Controllers\MataPelajaranA2Controller;
 use App\Http\Controllers\MataPelajaranA3Controller;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('/datasantri', DataSantriController::class);
+Route::get('/', function () {
+    return view('welcome');
 });
-
-Route::middleware(['auth', 'role:admin,pengajar'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('nilai', NilaiController::class);
-    Route::resource('datanilai', DataNilaiController::class);
-});
-
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/dashboard', function () {
     return view('pages.dashboard');
-})->name('pages.dashboard');
+})->middleware(['auth', 'verified'])->name('pages.dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth', 'role:admin'])->get('/admin', function () {
+    return view('pages.dashboard');
+});
+
+Route::middleware(['auth', 'role:pengajar'])->get('/pengajar', function () {
+    return view('pages.dashboard');
+});
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
+
+require __DIR__.'/auth.php';
 
 Route::get('/datasantri', [DatasantriController::class, 'index'])->name('datasantri.index');
 Route::get('/datasantri/create', [DatasantriController::class, 'create'])->name('datasantri.create');
@@ -52,6 +59,11 @@ Route::put('/datasantri/{id}', [DatasantriController::class, 'update'])->name('d
 Route::delete('/datasantri/{id}', [DatasantriController::class, 'destroy'])->name('datasantri.destroy');
 
 Route::get('/datapengajar', [DataPengajarController::class, 'index'])->name('datapengajar.index');
+Route::get('/datapengajar/create', [DataPengajarController::class, 'create'])->name('datapengajar.create');
+Route::post('/datapengajar', [DataPengajarController::class, 'store'])->name('datapengajar.store');
+Route::get('/datapengajar/{id}/edit', [DataPengajarController::class, 'edit'])->name('datapengajar.edit');
+Route::put('/datapengajar/{id}', [DataPengajarController::class, 'update'])->name('datapengajar.update');
+Route::delete('/datapengajar/{id}', [DataPengajarController::class, 'destroy'])->name('datapengajar.destroy');
 
 
 Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
@@ -142,16 +154,4 @@ Route::delete('/matapelajaran/a3/{id}', [MataPelajaranA3Controller::class, 'dest
 // Route::get('/matapelajaran/kelas/{nama_kelas}', [MataPelajaranController::class, 'showByKelas']);
 
 // Route::get('/matapelajaran/{kelas}', [MataPelajaranController::class, 'show'])->name('matapelajaran.show');
-
-
-
-
-
-
-
-
-
-
-
-
 

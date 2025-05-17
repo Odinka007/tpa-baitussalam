@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             NilaiSeeder::class,
             KelasSeeder::class,
             UserSeeder::class,
+            DatapengajarSeeder::class,
         ]);
 
     }

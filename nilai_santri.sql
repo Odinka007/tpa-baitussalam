@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2025 at 04:20 PM
+-- Generation Time: May 10, 2025 at 04:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -126,7 +126,9 @@ INSERT INTO `datasantris` (`id`, `nama_santri`, `jenis_kelamin`, `tempat_lahir`,
 (62, 'Vina 48', 'Perempuan', 'Kota H', '2020-04-27', 'Samsudin', 2, 'Jl. Contoh No. 14', 'Mengaji Cepat', '2025-05-07 03:27:51', '2025-05-07 03:27:51'),
 (63, 'Citra 49', 'Perempuan', 'Kota I', '2016-01-15', 'Nuraini', 3, 'Jl. Contoh No. 32', NULL, '2025-05-07 03:27:51', '2025-05-07 03:27:51'),
 (64, 'Qori 50', 'Perempuan', 'Kota F', '2017-10-15', 'Yati', 2, 'Jl. Contoh No. 57', NULL, '2025-05-07 03:27:51', '2025-05-07 03:27:51'),
-(66, 'wwwwwwww', 'Perempuan', 'dsdsd', '2025-05-13', 'sdsd', 2, 'sdsd', 'sds', '2025-05-07 03:47:31', '2025-05-07 03:47:44');
+(66, 'wwwwwwww', 'Perempuan', 'dsdsd', '2025-05-13', 'sdsd', 2, 'sdsd', 'sds', '2025-05-07 03:47:31', '2025-05-07 03:47:44'),
+(67, 'arjun', 'Laki-Laki', 'adsad', '2025-05-12', 'aaaa', 1, 'sadad', 'sdsdadsd', '2025-05-09 23:09:46', '2025-05-09 23:09:46'),
+(68, 'memed', 'Perempuan', 'sdad', '2025-05-21', 'asdad', 3, 'sdsd', 'sdsds', '2025-05-09 23:16:41', '2025-05-09 23:16:41');
 
 -- --------------------------------------------------------
 
@@ -265,7 +267,7 @@ INSERT INTO `matapelajarans` (`id`, `kelas_id`, `nama_matapelajaran`, `created_a
 (29, 4, 'Asmaul Husna 1-30', '2025-05-05 10:07:18', '2025-05-05 10:07:18'),
 (30, 4, 'Hafalan Surat Pendek', '2025-05-05 10:07:18', '2025-05-05 10:07:18'),
 (31, 4, 'Doa-Doa', '2025-05-05 10:07:18', '2025-05-05 10:07:18'),
-(32, 4, 'Materi Tambahan', '2025-05-05 10:07:18', '2025-05-05 10:07:18'),
+(32, 4, 'Materi Tambahan', '2025-05-05 10:07:18', '2025-05-07 07:33:01'),
 (34, 1, 'Menulis', '2025-05-05 10:58:59', '2025-05-05 10:58:59'),
 (35, 1, 'Adzan', '2025-05-05 11:00:16', '2025-05-05 11:02:52');
 
@@ -293,7 +295,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2025_05_02_063538_create_datasantris_table', 1),
 (6, '2025_05_02_063552_create_matapelajarans_table', 1),
 (7, '2025_05_02_063608_create_nilais_table', 1),
-(8, '2025_05_02_075708_create_kelas_mata_pelajaran_table', 1);
+(8, '2025_05_02_075708_create_kelas_mata_pelajaran_table', 1),
+(9, '2025_05_10_045538_add_role_to_users_table', 2);
 
 -- --------------------------------------------------------
 
@@ -385,7 +388,7 @@ INSERT INTO `nilais` (`id`, `santri_id`, `matapelajaran_id`, `kelas_id`, `nilai`
 (198, 7, 6, 2, 50, '2025-05-05 10:07:35', '2025-05-05 10:07:35'),
 (199, 7, 7, 2, 61, '2025-05-05 10:07:35', '2025-05-05 10:07:35'),
 (200, 7, 8, 2, 60, '2025-05-05 10:07:35', '2025-05-05 10:07:35'),
-(201, 7, 9, 2, 83, '2025-05-05 10:07:35', '2025-05-05 10:07:35'),
+(201, 7, 9, 2, 90, '2025-05-05 10:07:35', '2025-05-08 03:09:58'),
 (202, 7, 10, 2, 99, '2025-05-05 10:07:35', '2025-05-05 10:07:35'),
 (203, 7, 11, 2, 73, '2025-05-05 10:07:35', '2025-05-05 10:07:35'),
 (204, 7, 12, 2, 80, '2025-05-05 10:07:35', '2025-05-05 10:07:35'),
@@ -545,7 +548,24 @@ INSERT INTO `nilais` (`id`, `santri_id`, `matapelajaran_id`, `kelas_id`, `nilai`
 (394, 10, 7, NULL, 70, '2025-05-05 11:18:18', '2025-05-05 11:18:18'),
 (395, 10, 8, NULL, 88, '2025-05-05 11:18:18', '2025-05-05 11:18:18'),
 (396, 10, 34, NULL, 90, '2025-05-05 11:18:18', '2025-05-05 11:18:18'),
-(397, 10, 35, NULL, 100, '2025-05-05 11:18:19', '2025-05-05 11:18:19');
+(397, 10, 35, NULL, 100, '2025-05-05 11:18:19', '2025-05-05 11:18:19'),
+(407, 21, 1, NULL, 90, '2025-05-07 07:40:25', '2025-05-07 07:40:25'),
+(408, 21, 3, NULL, 90, '2025-05-07 07:40:25', '2025-05-07 07:40:25'),
+(409, 21, 4, NULL, 90, '2025-05-07 07:40:26', '2025-05-07 07:40:26'),
+(410, 21, 5, NULL, 90, '2025-05-07 07:40:26', '2025-05-07 07:40:26'),
+(411, 21, 6, NULL, 90, '2025-05-07 07:40:26', '2025-05-07 07:40:26'),
+(412, 21, 7, NULL, 90, '2025-05-07 07:40:26', '2025-05-07 07:40:26'),
+(413, 21, 8, NULL, 90, '2025-05-07 07:40:26', '2025-05-07 07:40:26'),
+(414, 21, 34, NULL, 90, '2025-05-07 07:40:26', '2025-05-07 07:40:26'),
+(415, 21, 35, NULL, 90, '2025-05-07 07:40:26', '2025-05-07 07:40:26'),
+(416, 22, 9, NULL, 90, '2025-05-07 08:16:39', '2025-05-07 08:16:54'),
+(417, 22, 10, NULL, 80, '2025-05-07 08:16:39', '2025-05-07 08:16:39'),
+(418, 22, 11, NULL, 80, '2025-05-07 08:16:39', '2025-05-07 08:16:39'),
+(419, 22, 12, NULL, 80, '2025-05-07 08:16:39', '2025-05-07 08:16:39'),
+(420, 22, 13, NULL, 80, '2025-05-07 08:16:39', '2025-05-07 08:16:39'),
+(421, 22, 14, NULL, 80, '2025-05-07 08:16:39', '2025-05-07 08:16:39'),
+(422, 22, 15, NULL, 80, '2025-05-07 08:16:39', '2025-05-07 08:16:39'),
+(423, 22, 16, NULL, 80, '2025-05-07 08:16:40', '2025-05-07 08:16:40');
 
 -- --------------------------------------------------------
 
@@ -579,7 +599,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('UQoMYhqQoGOKm6vnZAAVGX3xxlzcSYnBO3X2zHuR', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSEJaYVFWRTNjNmRmWGtvMFVtQTB5RXc4T2RFRm55V3hXSUtnWW1TaiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXRhc2FudHJpIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1746627540);
+('DFbXn2OkbAbbKAaid0KxnW3z6EkMuHJbqx4SAnco', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:138.0) Gecko/20100101 Firefox/138.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZVpiWGdGdTE4TzZCeERhWnJzNTZhdkdQa0cyZVM4QlczWGpzcDVGcSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXRhc2FudHJpLzQ5L2VkaXQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO30=', 1746885928);
 
 -- --------------------------------------------------------
 
@@ -595,8 +615,17 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `role` varchar(255) NOT NULL DEFAULT 'pengajar'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
+(2, 'Admin', 'admin@example.com', NULL, '$2y$12$sGMyTjiDJQCgCht7lQkGV.nD51EHow3WXm99BT751hBl3b5MPXlfO', NULL, '2025-05-09 22:35:46', '2025-05-09 22:35:46', 'admin'),
+(3, 'Pengajar', 'pengajar@example.com', NULL, '$2y$12$Bb2h5WMoNJFuyxLtXDULveEYkn3GGHliT.suSb3vNkxeUulUhWWVe', NULL, '2025-05-09 22:35:47', '2025-05-09 22:35:47', 'pengajar');
 
 --
 -- Indexes for dumped tables
@@ -706,7 +735,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `datasantris`
 --
 ALTER TABLE `datasantris`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -736,25 +765,25 @@ ALTER TABLE `kelas_mata_pelajaran`
 -- AUTO_INCREMENT for table `matapelajarans`
 --
 ALTER TABLE `matapelajarans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `nilais`
 --
 ALTER TABLE `nilais`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=407;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=424;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
