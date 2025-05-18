@@ -23,7 +23,7 @@ class KepribadianSeeder extends Seeder
                     'santri_id' => $santri->id,
                     'sikap' => $this->randomNilai(),
                     'kerajinan' => $this->randomNilai(),
-                    'purgita' => $this->randomNilai(),
+                    'keterampilan' => $this->randomNilai(),
                 ]);
             }
         }

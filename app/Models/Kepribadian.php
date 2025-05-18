@@ -9,7 +9,7 @@ class Kepribadian extends Model
      protected $table = 'kepribadian';
 
     protected $fillable = [
-        'santri_id', 'sikap', 'kerajinan', 'purgita',
+        'santri_id', 'sikap', 'kerajinan', 'keterampilan',
     ];
 
     public function santri()

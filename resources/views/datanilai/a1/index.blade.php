@@ -145,14 +145,14 @@
                                             </select>
                                         </div>
 
-                                        {{-- Purgita --}}
+                                        {{-- Keterampilan --}}
                                         <div class="mb-2">
-                                            <label class="form-label">Purgita</label>
-                                            <select name="purgita" class="form-control form-control-sm" required>
-                                                <option value="">-- Pilih Purgita --</option>
+                                            <label class="form-label">Keterampilan</label>
+                                            <select name="keterampilan" class="form-control form-control-sm" required>
+                                                <option value="">-- Pilih Keterampilan --</option>
                                                 @foreach ($opsiNilai as $nilai)
                                                     <option value="{{ $nilai }}"
-                                                        {{ $kepribadian && $kepribadian->purgita === $nilai ? 'selected' : '' }}>
+                                                        {{ $kepribadian && $kepribadian->keterampilan === $nilai ? 'selected' : '' }}>
                                                         {{ $nilai }}
                                                     </option>
                                                 @endforeach
@@ -258,10 +258,10 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-start">Purgita</td>
+                                                    <td class="text-start">Keterampilan</td>
                                                     <td>
                                                         @if ($kepribadian)
-                                                            {{ $kepribadian->purgita }}
+                                                            {{ $kepribadian->keterampilan }}
                                                         @else
                                                             <span class="text-muted fst-italic">Belum Diinput</span>
                                                         @endif

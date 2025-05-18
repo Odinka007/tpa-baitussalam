@@ -32,7 +32,7 @@ class DatanilaiA1Controller extends Controller
             'kelas_id' => 'required|exists:kelas,id',
             'sikap' => 'nullable|string|max:255',
             'kerajinan' => 'nullable|string|max:255',
-            'purgita' => 'nullable|string|max:255',
+            'keterampilan' => 'nullable|string|max:255',
         ]);
 
         $santri_id = $request->santri_id;
@@ -60,7 +60,7 @@ class DatanilaiA1Controller extends Controller
                 'santri_id' => $santri_id,
                 'sikap' => $request->sikap,
                 'kerajinan' => $request->kerajinan,
-                'purgita' => $request->purgita,
+                'keterampilan' => $request->keterampilan,
             ]
         );
 
@@ -96,7 +96,7 @@ class DatanilaiA1Controller extends Controller
             [
                 'sikap' => $request->sikap,
                 'kerajinan' => $request->kerajinan,
-                'purgita' => $request->purgita,
+                'keterampilan' => $request->keterampilan,
             ]
         );
 

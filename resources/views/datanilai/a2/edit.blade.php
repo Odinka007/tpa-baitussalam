@@ -80,19 +80,19 @@
                             @enderror
                         </div>
 
-                        {{-- Purgita --}}
+                        {{-- Keterampilan --}}
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold">Purgita</label>
-                            <select name="purgita" class="form-select @error('purgita') is-invalid @enderror">
-                                <option value="">-- Pilih Purgita --</option>
+                            <label class="form-label fw-semibold">Keterampilan</label>
+                            <select name="keterampilan" class="form-select @error('keterampilan') is-invalid @enderror">
+                                <option value="">-- Pilih Keterampilan --</option>
                                 @foreach ($options as $option)
                                     <option value="{{ $option }}"
-                                        {{ old('purgita', $kepribadian->purgita ?? '') == $option ? 'selected' : '' }}>
+                                        {{ old('keterampilan', $kepribadian->keterampilan ?? '') == $option ? 'selected' : '' }}>
                                         {{ $option }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('purgita')
+                            @error('keterampilan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

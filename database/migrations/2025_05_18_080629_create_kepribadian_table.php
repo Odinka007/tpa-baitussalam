@@ -16,11 +16,11 @@ return new class extends Migration
     $table->foreignId('santri_id')->constrained('datasantris')->onDelete('cascade');
     $table->string('sikap')->nullable();
     $table->string('kerajinan')->nullable();
-    $table->string('purgita')->nullable();
+    $table->string('keterampilan')->nullable();
     $table->timestamps();
 
     // rujuk ke tabel datasantris, bukan santri
-    $table->foreign('santri_id')->references('id')->on('datasantris')->onDelete('cascade');
+    // $table->foreign('santri_id')->references('id')->on('datasantris')->onDelete('cascade');
 });
     }
 
