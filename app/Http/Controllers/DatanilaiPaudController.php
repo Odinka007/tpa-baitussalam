@@ -7,50 +7,69 @@ use App\Models\Datasantri;
 use App\Models\Kelas;
 use App\Models\Matapelajaran;
 use App\Models\Nilai;
+use App\Models\Kepribadian;
 
 class DatanilaiPaudController extends Controller
 {
     public function index()
     {
         $kelas = Kelas::where('nama_kelas', 'PAUD')->firstOrFail();
-        $datasantris = Datasantri::where('kelas_id', $kelas->id)->get();
+        $datasantris = Datasantri::where('kelas_id', $kelas->id)->paginate(10);
         $matapelajaran = $kelas->matapelajarans;
 
         return view('datanilai.paud.index', compact('kelas', 'datasantris', 'matapelajaran'));
     }
 
-    public function store(Request $request)
-    {
-        // Validasi input
-        $validated = $request->validate([
-            'santri_id' => 'required|exists:datasantris,id',
-            'matapelajaran_id' => 'required|array',
-            'matapelajaran_id.*' => 'exists:matapelajarans,id',
-            'nilai' => 'required|array',
-            'nilai.*' => 'numeric|min:0|max:100',
-            'kelas_id' => 'required|exists:kelas,id',
+public function store(Request $request)
+{
+    // Validasi input
+    $validated = $request->validate([
+        'santri_id' => 'required|exists:datasantris,id',
+        'matapelajaran_id' => 'required|array',
+        'matapelajaran_id.*' => 'exists:matapelajarans,id',
+        'nilai' => 'required|array',
+        'nilai.*' => 'numeric|min:0|max:100',
+        'kelas_id' => 'required|exists:kelas,id',
+        'sikap' => 'nullable|string|max:255',
+        'kerajinan' => 'nullable|string|max:255',
+        'purgita' => 'nullable|string|max:255',
+    ]);
+
+    $santri_id = $request->santri_id;
+    $matapelajaran_ids = $request->matapelajaran_id;
+    $nilais = $request->nilai;
+    $kelas_id = $request->kelas_id;
+
+    // Ambil santri berdasarkan ID
+    $santri = Datasantri::findOrFail($santri_id);
+
+    // Hapus nilai lama jika perlu agar tidak duplicate
+    Nilai::where('santri_id', $santri_id)->delete();
+
+    // Loop untuk menyimpan nilai untuk setiap mata pelajaran
+    foreach ($matapelajaran_ids as $index => $mapel_id) {
+        Nilai::create([
+            'santri_id' => $santri_id,
+            'matapelajaran_id' => $mapel_id,
+            'kelas_id' => $kelas_id,
+            'nilai' => $nilais[$index],
         ]);
-
-        $santri_id = $request->santri_id;
-        $matapelajaran_ids = $request->matapelajaran_id;
-        $nilais = $request->nilai;
-        $kelas_id = $request->kelas_id;
-
-        // Ambil santri berdasarkan ID
-        $santri = Datasantri::findOrFail($santri_id);
-
-        // Loop untuk menyimpan nilai untuk setiap mata pelajaran
-        foreach ($matapelajaran_ids as $index => $mapel_id) {
-            Nilai::create([
-                'santri_id' => $santri_id,
-                'matapelajaran_id' => $mapel_id,
-                'kelas_id' => $kelas_id,
-                'nilai' => $nilais[$index],
-            ]);
-        }
-
-        return back()->with('success', 'Nilai berhasil disimpan.');
     }
+
+    // Simpan nilai kepribadian, gunakan updateOrCreate agar bisa update jika sudah ada
+    Kepribadian::updateOrCreate(
+        ['santri_id' => $santri_id],
+        [
+            'santri_id' => $santri_id,
+            'sikap' => $request->sikap,
+            'kerajinan' => $request->kerajinan,
+            'purgita' => $request->purgita,
+        ]
+    );
+
+    return back()->with('success', 'Nilai berhasil disimpan.');
+}
+
     
 
     public function edit($santri_id)
@@ -63,20 +82,32 @@ class DatanilaiPaudController extends Controller
         return view('datanilai.paud.edit', compact('nilai', 'santri', 'matapelajaran'));
     }
 
-    public function update(Request $request, $santri_id)
-    {
-        $nilais = $request->nilai;
-        $matapelajaran_ids = $request->matapelajaran_id;
+public function update(Request $request, $santri_id)
+{
+    $nilais = $request->nilai;
+    $matapelajaran_ids = $request->matapelajaran_id;
 
-        foreach ($matapelajaran_ids as $index => $mapel_id) {
-            Nilai::updateOrCreate(
-                ['santri_id' => $santri_id, 'matapelajaran_id' => $mapel_id],
-                ['nilai' => $nilais[$index]]
-            );
-        }
-
-        return redirect()->route('datanilai.paud.index')->with('success', 'Nilai berhasil diperbarui.');
+    // Update atau create nilai mata pelajaran
+    foreach ($matapelajaran_ids as $index => $mapel_id) {
+        Nilai::updateOrCreate(
+            ['santri_id' => $santri_id, 'matapelajaran_id' => $mapel_id],
+            ['nilai' => $nilais[$index]]
+        );
     }
+
+    // Update atau create nilai kepribadian
+    Kepribadian::updateOrCreate(
+        ['santri_id' => $santri_id],
+        [
+            'sikap' => $request->sikap,
+            'kerajinan' => $request->kerajinan,
+            'purgita' => $request->purgita,
+        ]
+    );
+
+    return redirect()->route('datanilai.paud.index')->with('success', 'Nilai berhasil diperbarui.');
+}
+
 
     public function destroy($santri_id, $mapel_id)
     {

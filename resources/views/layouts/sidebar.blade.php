@@ -1,9 +1,9 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion sidebar-bordered" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
+        <div class="sidebar-brand-icon">
+            <img src="{{ asset('image/BAITUSSALAM.png') }}" alt="Logo" width="60">
         </div>
         <div class="sidebar-brand-text mx-3">SiBais</div>
     </a>
@@ -22,11 +22,11 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    @if(auth()->user()->role === 'admin')
+    @if (auth()->user()->role === 'admin')
         <!-- Nav Item - Data Santri -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('datasantri.index') }}">
-                <i class="fas fa-fw fa-users"></i>  
+                <i class="fas fa-fw fa-users"></i>
                 <span class="fs-2">Data Santri</span>
             </a>
         </li>
@@ -34,7 +34,7 @@
         <!-- Nav Item - Data Pengajar -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('datapengajar.index') }}">
-                <i class="fas fa-fw fa-users"></i>  
+                <i class="fas fa-fw fa-users"></i>
                 <span>Data Pengajar</span>
             </a>
         </li>

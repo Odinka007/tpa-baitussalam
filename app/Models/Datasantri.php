@@ -32,4 +32,10 @@ public function nilai()
     // return $this->hasMany(Nilai::class); 
 }
 
+public function kepribadian()
+{
+    return $this->hasOne(Kepribadian::class, 'santri_id');
+}
+
+
 }

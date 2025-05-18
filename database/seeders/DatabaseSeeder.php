@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,
             UserSeeder::class,
             DatapengajarSeeder::class,
+            KepribadianSeeder::class,
         ]);
 
     }

@@ -7,13 +7,14 @@ use App\Models\Datasantri;
 use App\Models\Kelas;
 use App\Models\Matapelajaran;
 use App\Models\Nilai;
+use App\Models\Kepribadian;
 
 class DatanilaiA2Controller extends Controller
 {
     public function index()
     {
         $kelas = Kelas::where('nama_kelas', 'A2')->firstOrFail();
-        $datasantris = Datasantri::where('kelas_id', $kelas->id)->get();
+        $datasantris = Datasantri::where('kelas_id', $kelas->id)->paginate(10);
         $matapelajaran = $kelas->matapelajarans;
 
         return view('datanilai.a2.index', compact('kelas', 'datasantris', 'matapelajaran'));
@@ -29,6 +30,9 @@ class DatanilaiA2Controller extends Controller
             'nilai' => 'required|array',
             'nilai.*' => 'numeric|min:0|max:100',
             'kelas_id' => 'required|exists:kelas,id',
+             'sikap' => 'nullable|string|max:255',
+            'kerajinan' => 'nullable|string|max:255',
+            'purgita' => 'nullable|string|max:255',
         ]);
 
         $santri_id = $request->santri_id;
@@ -48,6 +52,17 @@ class DatanilaiA2Controller extends Controller
                 'nilai' => $nilais[$index],
             ]);
         }
+
+        // Simpan nilai kepribadian, gunakan updateOrCreate agar bisa update jika sudah ada
+    Kepribadian::updateOrCreate(
+        ['santri_id' => $santri_id],
+        [
+            'santri_id' => $santri_id,
+            'sikap' => $request->sikap,
+            'kerajinan' => $request->kerajinan,
+            'purgita' => $request->purgita,
+        ]
+    );
 
         return back()->with('success', 'Nilai berhasil disimpan.');
     }
