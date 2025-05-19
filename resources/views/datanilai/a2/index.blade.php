@@ -208,7 +208,8 @@
                                                             ->first();
                                                     @endphp
                                                     <tr>
-                                                        <td class="text-start">{{ $mapel->nama_matapelajaran }}</td>
+                                                        <td class="text-start text-dark">{{ $mapel->nama_matapelajaran }}
+                                                        </td>
                                                         <td>
                                                             @if ($nilai)
                                                                 <span
@@ -238,30 +239,33 @@
                                             <tbody>
                                                 @php $kepribadian = $santri->kepribadian; @endphp
                                                 <tr>
-                                                    <td class="text-start">Sikap</td>
+                                                    <td class="text-start text-dark">Sikap</td>
                                                     <td>
                                                         @if ($kepribadian)
-                                                            {{ $kepribadian->sikap }}
+                                                            <span
+                                                                class="fw-bold text-success">{{ $kepribadian->sikap }}</span>
                                                         @else
                                                             <span class="text-muted fst-italic">Belum Diinput</span>
                                                         @endif
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-start">Kerajinan</td>
+                                                    <td class="text-start text-dark">Kerajinan</td>
                                                     <td>
                                                         @if ($kepribadian)
-                                                            {{ $kepribadian->kerajinan }}
+                                                            <span
+                                                                class="fw-bold text-success">{{ $kepribadian->kerajinan }}</span>
                                                         @else
                                                             <span class="text-muted fst-italic">Belum Diinput</span>
                                                         @endif
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-start">Keterampilan</td>
+                                                    <td class="text-start text-dark">Keterampilan</td>
                                                     <td>
                                                         @if ($kepribadian)
-                                                            {{ $kepribadian->keterampilan }}
+                                                            <span
+                                                                class="fw-bold text-success">{{ $kepribadian->keterampilan }}</span>
                                                         @else
                                                             <span class="text-muted fst-italic">Belum Diinput</span>
                                                         @endif

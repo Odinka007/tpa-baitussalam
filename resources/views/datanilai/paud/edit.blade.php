@@ -50,7 +50,7 @@
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Sikap</label>
                             <select name="sikap" class="form-select @error('sikap') is-invalid @enderror">
-                                <option value="">-- Pilih Sikap --</option>
+                                <option value="">-- Pilih Nilai --</option>
                                 @foreach ($options as $option)
                                     <option value="{{ $option }}"
                                         {{ old('sikap', $kepribadian->sikap ?? '') == $option ? 'selected' : '' }}>
@@ -67,7 +67,7 @@
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Kerajinan</label>
                             <select name="kerajinan" class="form-select @error('kerajinan') is-invalid @enderror">
-                                <option value="">-- Pilih Kerajinan --</option>
+                                <option value="">-- Pilih Nilai --</option>
                                 @foreach ($options as $option)
                                     <option value="{{ $option }}"
                                         {{ old('kerajinan', $kepribadian->kerajinan ?? '') == $option ? 'selected' : '' }}>
@@ -84,7 +84,7 @@
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Keterampilan</label>
                             <select name="keterampilan" class="form-select @error('keterampilan') is-invalid @enderror">
-                                <option value="">-- Pilih Keterampilan --</option>
+                                <option value="">-- Pilih Nilai --</option>
                                 @foreach ($options as $option)
                                     <option value="{{ $option }}"
                                         {{ old('keterampilan', $kepribadian->keterampilan ?? '') == $option ? 'selected' : '' }}>
