@@ -155,3 +155,4 @@ Route::delete('/matapelajaran/a3/{id}', [MataPelajaranA3Controller::class, 'dest
 
 // Route::get('/matapelajaran/{kelas}', [MataPelajaranController::class, 'show'])->name('matapelajaran.show');
 
+Route::get('/nilai/paud/cetak', [NilaiPaudController::class, 'cetakPDF'])->name('nilai-paud.cetak');

@@ -12,7 +12,7 @@
     <div class="row g-4 mb-4">
         <!-- Card Gambar -->
         <div class="col-md-4">
-            <div class="card shadow rounded-4 border-0 h-100" style="background-color: #d6d7d8;">
+            <div class="card shadow rounded-4 border-0 h-100" style="background-color: #adb7c1;">
                 <div class="p-3 text-center">
                     <img src="{{ asset('image/pattern.png') }}" alt="Karakter TPA" class="img-fluid rounded-3"
                         style="width: 100%; aspect-ratio: 1 / 1; object-fit: cover; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
@@ -22,9 +22,9 @@
 
         <!-- Card Deskripsi -->
         <div class="col-md-8">
-            <div class="card shadow rounded-4 border-0 h-100" style="background-color: #75c2f6;">
+            <div class="card shadow rounded-4 border-0 h-100" style="background-color: #1d8ed9;">
                 <div class="card-body p-4">
-                    <h3 class="card-title text-light fw-bold mb-3">Profil TPA Basitussalam</h3>
+                    <h3 class="card-title text-light fw-bold mb-3">Profil TPA Baitussalam</h3>
                     <p class="card-text text-light text-justify mb-2" style="line-height: 1.7;">
                         Taman Pendidikan Al-Qur'an (TPA) Basitussalam adalah lembaga pendidikan non-formal yang fokus pada
                         pembelajaran Al-Qur'an bagi anak-anak. TPA ini memiliki beberapa kelas seperti PAUD, A1, A2, dan A3

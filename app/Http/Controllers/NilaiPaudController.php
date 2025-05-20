@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Datasantri;
 use App\Models\Kelas;
 use App\Models\Matapelajaran;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
 
 class NilaiPaudController extends Controller
 {
@@ -21,5 +24,5 @@ class NilaiPaudController extends Controller
 
     return view('nilai.paud', compact('datasantris', 'matapelajaran', 'kelas'));
 }
-    
+ 
 }

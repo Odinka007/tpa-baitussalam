@@ -7,27 +7,29 @@
         <h2 class="mb-4">Daftar Nilai Santri Kelas PAUD</h2>
 
         <div class="table-responsive">
-            <table class="table table-striped table-bordered align-middle">
-                <thead class="table-primary bg-primary text-white">
+
+
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-primary bg-primary text-white text-center">
                     <tr>
-                        <th>No</th>
-                        <th>Nama Santri</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Nama Orang Tua</th>
-                        <th>Aksi</th>
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 30%;">Nama Santri</th>
+                        <th style="width: 15%;">Jenis Kelamin</th>
+                        <th style="width: 15%;">Nama Orang Tua</th>
+                        <th style="width: 20%;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($datasantris as $index => $santri)
                         <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $santri->nama_santri }}</td>
-                            <td>{{ $santri->jenis_kelamin }}</td>
-                            <td>{{ $santri->nama_orang_tua }}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#nilaiModal{{ $santri->id }}">
-                                    Lihat Nilai
+                            <td class="text-center text-dark">{{ $index + 1 }}</td>
+                            <td class="text-start text-dark">{{ $santri->nama_santri }}</td>
+                            <td class="text-center text-dark">{{ $santri->jenis_kelamin }}</td>
+                            <td class="text-start text-dark">{{ $santri->nama_orang_tua }}</td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1"
+                                    data-bs-toggle="modal" data-bs-target="#nilaiModal{{ $santri->id }}">
+                                    <i class="bi bi-eye"></i> Lihat Nilai
                                 </button>
                             </td>
                         </tr>
