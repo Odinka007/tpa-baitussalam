@@ -29,7 +29,17 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top"
+    style="
+    background-image: url('{{ asset('image/bg.jpg') }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+">
+
 
     <!-- Page Wrapper -->
     <div id="wrapper">

@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans text-white antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-blue-600 text-white">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+
+<body class="font-sans antialiased bg-blue-600 text-white">
+    <div class="min-h-screen flex flex-col justify-center items-center py-6">
+
+        <!-- Card Utama -->
+        <div
+            class="w-full sm:max-w-md px-6 py-6 bg-white border border-white shadow-lg rounded-lg text-gray-800 text-center">
 
             <!-- Judul Sistem -->
-            <div class="text-center mb-4">
+            <div class="mb-4">
                 <h1 class="text-2xl sm:text-3xl font-bold tracking-wide">Sistem Informasi TPA Baitussalam</h1>
             </div>
 
             <!-- Logo -->
-            <div>
+            <div class="mb-4">
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-white" />
+                    <img src="{{ asset('image/BAITUSSALAM-HITAM.png') }}" alt="Logo TPA" class="w-20 h-20 mx-auto">
                 </a>
             </div>
 
-            <div class="text-center mb-4">
-                <h1 class="text-2xl sm:text-3xl font-bold tracking-wide">LOGIN</h1>
-            </div>
 
-            <!-- Card Login -->
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg text-gray-800">
+            <!-- Judul Login -->
+            {{-- <div class="mb-4">
+                <h2 class="text-xl sm:text-2xl font-semibold">LOGIN</h2>
+            </div> --}}
+
+            <!-- Form Login -->
+            <div class="mt-4">
                 {{ $slot }}
             </div>
+
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

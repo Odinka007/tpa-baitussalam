@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container mt-4">
-        <h2 class="mb-4">Daftar Nilai Santri Kelas A1</h2>
+        <h2 class="mb-4 text-dark">Daftar Nilai Santri Kelas A1</h2>
 
         <div class="table-responsive">
             <table class="table table-bordered table-striped align-middle">
@@ -25,7 +25,7 @@
                             <td class="text-center text-dark">{{ $santri->jenis_kelamin }}</td>
                             <td class="text-start text-dark">{{ $santri->nama_orang_tua }}</td>
                             <td class="text-center">
-                                <button class="btn btn-sm btn-primary d-inline-flex align-items-center gap-1"
+                                <button class="btn btn-sm btn-info d-inline-flex align-items-center gap-1"
                                     data-bs-toggle="modal" data-bs-target="#nilaiModal{{ $santri->id }}">
                                     <i class="bi bi-eye"></i> Lihat Nilai
                                 </button>
