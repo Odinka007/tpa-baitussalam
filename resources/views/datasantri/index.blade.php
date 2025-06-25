@@ -33,30 +33,33 @@
             <table class="table table-bordered table-sm table-striped table-hover text-dark">
                 <thead class="table-light text-white bg-primary">
                     <tr class="text-center">
-                        <th>No</th>
-                        <th>Nama Santri</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Nama Orang Tua</th>
-                        <th>Kelas</th>
-                        <th>Alamat</th>
-                        <th>Tempat & Tanggal Lahir</th>
-                        <th>Bakat / Prestasi</th>
+                        <th rowspan="2" class="text-center align-middle">No</th>
+                        <th rowspan="2" class="text-center align-middle">Nomor Induk Santri</th>
+                        <th rowspan="2" class="text-center align-middle">Nama Santri</th>
+                        <th rowspan="2" class="text-center align-middle">Jenis Kelamin</th>
+                        <th rowspan="2" class="text-center align-middle">Nama Orang Tua</th>
+                        <th rowspan="2" class="text-center align-middle">Kelas</th>
+                        <th rowspan="2" class="text-center align-middle">Alamat</th>
+                        <th rowspan="2" class="text-center align-middle">Tempat & Tanggal Lahir</th>
+                        <th rowspan="2" class="text-center align-middle">Bakat / Prestasi</th>
                         <th style="width: 160px;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($datasantris as $santri)
                         <tr>
-                            <td>{{ $loop->iteration + ($datasantris->currentPage() - 1) * $datasantris->perPage() }}</td>
-                            <td>{{ $santri->nama_santri }}</td>
-                            <td>{{ $santri->jenis_kelamin }}</td>
-                            <td>{{ $santri->nama_orang_tua }}</td>
-                            <td>{{ $santri->kelas->nama_kelas ?? '-' }}</td>
-                            <td>{{ $santri->alamat }}</td>
-                            <td>{{ $santri->tempat_lahir }},
+                            <td class="text-center align-middle">
+                                {{ $loop->iteration + ($datasantris->currentPage() - 1) * $datasantris->perPage() }}</td>
+                            <td class="text-center align-middle"> {{ strtoupper($santri->nomor_induk_santri) }}</td>
+                            <td class="text-center align-middle">{{ $santri->nama_santri }}</td>
+                            <td class="text-center align-middle">{{ $santri->jenis_kelamin }}</td>
+                            <td class="text-center align-middle">{{ $santri->nama_orang_tua }}</td>
+                            <td class="text-center align-middle">{{ $santri->kelas->nama_kelas ?? '-' }}</td>
+                            <td class="text-center align-middle">{{ $santri->alamat }}</td>
+                            <td class="text-center align-middle">{{ $santri->tempat_lahir }},
                                 {{ \Carbon\Carbon::parse($santri->tanggal_lahir)->format('d-m-Y') }}</td>
-                            <td>{{ $santri->bakat_prestasi ?? '-' }}</td>
-                            <td>
+                            <td class="text-center align-middle">{{ $santri->bakat_prestasi ?? '-' }}</td>
+                            <td class="text-center align-middle">
                                 <a href="{{ route('datasantri.edit', $santri->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>

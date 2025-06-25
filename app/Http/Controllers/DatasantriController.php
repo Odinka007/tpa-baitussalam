@@ -47,11 +47,30 @@ public function store(Request $request)
         'bakat_prestasi' => 'nullable|string',
     ]);
 
+    // Prefix NIS
+    $prefix = 'NIS';
+
+    // Cari nomor induk terakhir
+    $lastSantri = \App\Models\Datasantri::where('nomor_induk_santri', 'like', $prefix . '%')
+        ->orderBy('nomor_induk_santri', 'desc')
+        ->first();
+
+    if ($lastSantri) {
+        $lastNumber = (int) substr($lastSantri->nomor_induk_santri, strlen($prefix)); // Ambil angka setelah "NIS"
+        $newNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+    } else {
+        $newNumber = '001';
+    }
+
+    // Tambahkan ke data yang akan disimpan
+    $validated['nomor_induk_santri'] = $prefix . $newNumber;
+
     // Simpan data
     \App\Models\Datasantri::create($validated);
 
     return redirect()->route('datasantri.index')->with('success', 'Data santri berhasil disimpan.');
 }
+
 
 
 public function edit($id)

@@ -11,6 +11,7 @@ class Datasantri extends Model
 
     // Menambahkan kolom yang dapat diisi secara massal
     protected $fillable = [
+        'nomor_induk_santri',
         'nama_santri',
         'jenis_kelamin',
         'nama_orang_tua',

@@ -25,7 +25,8 @@ class DataPengajarController extends Controller
 
 public function store(Request $request)
 {
-    $request->validate([
+    // Simpan hasil validasi ke dalam $validated
+    $validated = $request->validate([
         'nama_pengajar'      => 'required|string|max:255',
         'jenis_kelamin'      => 'required|in:Laki-Laki,Perempuan',
         'tempat_lahir'       => 'nullable|string|max:255',
@@ -37,10 +38,30 @@ public function store(Request $request)
         'pekerjaan'          => 'required|string|max:255',
     ]);
 
-    Datapengajar::create($request->all());
+    // Prefix NIP
+    $prefix = 'NIP';
 
-    return redirect()->route('datapengajar.index')->with('success', 'Data pengajar berhasil ditambahkan.');
+    // Cari nomor induk terakhir
+    $lastPengajar = \App\Models\Datapengajar::where('nomor_induk_pengajar', 'like', $prefix . '%')
+        ->orderBy('nomor_induk_pengajar', 'desc')
+        ->first();
+
+    if ($lastPengajar) {
+        $lastNumber = (int) substr($lastPengajar->nomor_induk_pengajar, strlen($prefix));
+        $newNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+    } else {
+        $newNumber = '001';
+    }
+
+    // Tambahkan nomor induk ke data
+    $validated['nomor_induk_pengajar'] = $prefix . $newNumber;
+
+    // Simpan data
+    \App\Models\Datapengajar::create($validated);
+
+    return redirect()->route('datapengajar.index')->with('success', 'Data pengajar berhasil disimpan.');
 }
+
 
 public function edit($id)
     {

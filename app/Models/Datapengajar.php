@@ -13,6 +13,7 @@ class Datapengajar extends Model
     protected $table = 'datapengajar';
 
     protected $fillable = [
+    'nomor_induk_pengajar',
     'nama_pengajar',
     'jenis_kelamin',
     'tempat_lahir',
