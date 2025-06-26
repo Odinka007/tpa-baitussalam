@@ -73,9 +73,13 @@ Route::get('/nilai/{id}/edit', [NilaiController::class, 'edit'])->name('nilai.ed
 Route::put('/nilai/{id}', [NilaiController::class, 'update'])->name('nilai.update');
 Route::delete('/nilai/{id}', [NilaiController::class, 'destroy'])->name('nilai.destroy');
 Route::get('/nilai/paud', [NilaiPaudController::class, 'index'])->name('nilai.paud');
+Route::get('/nilai/paud/cetak/{id}', [App\Http\Controllers\NilaiPaudController::class, 'cetakPdf'])->name('nilai.paud.cetak');
 Route::get('/nilai/a1', [NilaiA1Controller::class, 'index'])->name('nilai.a1');
+Route::get('/nilai/a1/cetak/{id}', [App\Http\Controllers\NilaiA1Controller::class, 'cetakPdf'])->name('nilai.a1.cetak');
 Route::get('/nilai/a2', [NilaiA2Controller::class, 'index'])->name('nilai.a2');
+Route::get('/nilai/a2/cetak/{id}', [App\Http\Controllers\NilaiA2Controller::class, 'cetakPdf'])->name('nilai.a2.cetak');
 Route::get('/nilai/a3', [NilaiA3Controller::class, 'index'])->name('nilai.a3');
+Route::get('/nilai/a3/cetak/{id}', [App\Http\Controllers\NilaiA3Controller::class, 'cetakPdf'])->name('nilai.a3.cetak');
 // Route::get('/nilai/kelas/{id}', [NilaiController::class, 'perKelas'])->name('nilai.perkelas');
 
 Route::get('/datanilai', [DatanilaiController::class, 'index'])->name('datanilai.index');

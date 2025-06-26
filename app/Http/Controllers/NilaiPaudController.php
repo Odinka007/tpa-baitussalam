@@ -24,5 +24,19 @@ class NilaiPaudController extends Controller
 
     return view('nilai.paud', compact('datasantris', 'matapelajaran', 'kelas'));
 }
+
+   public function cetakPdf($id)
+{
+    $santri = Datasantri::with(['nilai.matapelajaran', 'kepribadian'])->findOrFail($id);
+
+    $kelas = Kelas::where('nama_kelas', 'PAUD')->firstOrFail(); 
+
+    $pdf = Pdf::loadView('pdf.nilaipaud', compact('santri', 'kelas'))
+              ->setPaper([0, 0, 595.276, 935.433], 'portrait');
+
+    return $pdf->download('nilai_' . $kelas->nama_kelas . $santri->nama_santri . '.pdf');
+}
+
+
  
 }
