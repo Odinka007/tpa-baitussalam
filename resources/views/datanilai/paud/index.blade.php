@@ -25,6 +25,12 @@
                                 @php
                                     $jumlahNilai = $santri->nilai->count();
                                     $jumlahMapel = $matapelajaran->count();
+                                    $statusNilai =
+                                        $jumlahNilai === 0
+                                            ? 'belum'
+                                            : ($jumlahNilai < $jumlahMapel
+                                                ? 'sebagian'
+                                                : 'lengkap');
                                 @endphp
                                 <tr>
                                     <td>{{ $datasantris->firstItem() + $loop->index }}</td>
@@ -37,8 +43,8 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-between gap-1">
-                                            {{-- Tombol Masukkan Nilai / Nilai Tersimpan --}}
-                                            @if ($jumlahNilai >= $jumlahMapel)
+                                            {{-- Tombol Masukkan Nilai --}}
+                                            @if ($statusNilai === 'lengkap')
                                                 <button type="button" class="btn btn-sm btn-success" disabled>
                                                     Nilai Tersimpan
                                                 </button>
@@ -50,15 +56,15 @@
                                             @endif
 
                                             {{-- Tombol Edit Nilai --}}
-                                            @if ($jumlahNilai > 0)
+                                            @if ($statusNilai === 'belum')
+                                                <button class="btn btn-sm btn-warning" disabled>
+                                                    Edit Nilai
+                                                </button>
+                                            @else
                                                 <a href="{{ route('datanilai.paud.edit', $santri->id) }}"
                                                     class="btn btn-sm btn-warning">
                                                     Edit Nilai
                                                 </a>
-                                            @else
-                                                <button class="btn btn-sm btn-warning" disabled>
-                                                    Edit Nilai
-                                                </button>
                                             @endif
                                         </div>
                                     </td>
@@ -77,7 +83,7 @@
         @foreach ($datasantris as $santri)
             <div class="modal fade" id="nilaiModal{{ $santri->id }}" tabindex="-1"
                 aria-labelledby="nilaiModalLabel{{ $santri->id }}" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg"> {{-- Perbesar modal --}}
+                <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <form action="{{ url('/datanilai/paud') }}" method="POST">
                             @csrf
@@ -108,6 +114,7 @@
                                             </div>
                                         @endforeach
                                     </div>
+
                                     {{-- Kolom Input Kepribadian --}}
                                     <div class="col-md-6">
                                         <h6 class="text-primary fw-bold mb-2">Nilai Kepribadian</h6>
@@ -117,7 +124,6 @@
                                             $opsiNilai = ['Sangat Baik', 'Baik', 'Kurang'];
                                         @endphp
 
-                                        {{-- Sikap --}}
                                         <div class="mb-2">
                                             <label class="form-label">Sikap</label>
                                             <select name="sikap" class="form-control form-control-sm" required>
@@ -131,7 +137,6 @@
                                             </select>
                                         </div>
 
-                                        {{-- Kerajinan --}}
                                         <div class="mb-2">
                                             <label class="form-label">Kerajinan</label>
                                             <select name="kerajinan" class="form-control form-control-sm" required>
@@ -145,7 +150,6 @@
                                             </select>
                                         </div>
 
-                                        {{-- Keterampilan --}}
                                         <div class="mb-2">
                                             <label class="form-label">Keterampilan</label>
                                             <select name="keterampilan" class="form-control form-control-sm" required>
@@ -158,7 +162,6 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -173,17 +176,14 @@
             </div>
         @endforeach
 
-
         {{-- MODAL LIHAT NILAI --}}
         @foreach ($datasantris as $santri)
             <div class="modal fade" id="lihatNilaiModal{{ $santri->id }}" tabindex="-1"
                 aria-labelledby="lihatNilaiLabel{{ $santri->id }}" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg"> {{-- Tambahkan modal-lg agar lebar modal cukup --}}
+                <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content shadow">
                         <div class="modal-header bg-primary text-white">
-                            <h5 class="modal-title" id="lihatNilaiLabel{{ $santri->id }}">
-                                Nilai - {{ $santri->nama_santri }}
-                            </h5>
+                            <h5 class="modal-title">Nilai - {{ $santri->nama_santri }}</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                 aria-label="Tutup"></button>
                         </div>
@@ -191,7 +191,6 @@
                             <div class="row">
                                 {{-- Tabel Mata Pelajaran --}}
                                 <div class="col-md-6">
-                                    {{-- <h6 class="text-primary fw-bold mb-2">Nilai Mata Pelajaran</h6> --}}
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-sm align-middle text-center">
                                             <thead class="table-primary">
@@ -208,16 +207,14 @@
                                                             ->first();
                                                     @endphp
                                                     <tr>
-                                                        <td class="text-start text-dark">
-                                                            {{ $mapel->nama_matapelajaran }}
+                                                        <td class="text-start text-dark">{{ $mapel->nama_matapelajaran }}
                                                         </td>
                                                         <td>
                                                             @if ($nilai)
                                                                 <span
                                                                     class="fw-bold text-success">{{ $nilai->nilai }}</span>
                                                             @else
-                                                                <span class="text-muted fst-italic">Belum
-                                                                    Diinput</span>
+                                                                <span class="text-muted fst-italic">Belum Diinput</span>
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -229,7 +226,6 @@
 
                                 {{-- Tabel Kepribadian --}}
                                 <div class="col-md-6">
-                                    {{-- <h6 class="text-primary fw-bold mb-2">Nilai Kepribadian</h6> --}}
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-sm align-middle text-center">
                                             <thead class="table-primary">
@@ -287,6 +283,5 @@
                 </div>
             </div>
         @endforeach
-
     </div>
 @endsection

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'kelas_id',
     ];
 
     /**
@@ -46,4 +47,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+        public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+
 }

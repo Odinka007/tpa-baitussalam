@@ -9,9 +9,6 @@ use App\Models\Kelas;
 use Illuminate\Support\Facades\Auth;
 
 
-
-
-
 class DatasantriController extends Controller
 {
     public function index(Request $request)

@@ -43,6 +43,13 @@
                     Activity Log
                 </a> --}}
                 <div class="dropdown-divider"></div>
+                @if (Auth::user()->role === 'admin')
+                    <a class="dropdown-item" href="{{ route('akun.index') }}">
+                        <i class="fas fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Tambah Akun
+                    </a>
+                @endif
+                <div class="dropdown-divider"></div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="dropdown-item">

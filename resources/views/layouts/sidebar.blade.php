@@ -59,10 +59,17 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('nilai.index') }}">
                 <i class="bi bi-archive-fill"></i>
-                <span>Nilai</span>
+                <span>Cetak Nilai</span>
             </a>
         </li>
     @elseif(auth()->user()->role === 'pengajar')
+        <!-- Nav Item - Mata Pelajaran -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('matapelajaran.index') }}">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                <span>Mata Pelajaran</span>
+            </a>
+        </li>
         <!-- Nav Item - Data Nilai -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('datanilai.index') }}">
@@ -75,7 +82,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('nilai.index') }}">
                 <i class="bi bi-archive-fill"></i>
-                <span>Nilai</span>
+                <span>Cetak Nilai</span>
             </a>
         </li>
     @endif

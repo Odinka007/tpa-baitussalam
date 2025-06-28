@@ -21,6 +21,7 @@ use App\Http\Controllers\MataPelajaranPaudController;
 use App\Http\Controllers\MataPelajaranA1Controller;
 use App\Http\Controllers\MataPelajaranA2Controller;
 use App\Http\Controllers\MataPelajaranA3Controller;
+use App\Http\Controllers\DaftarAkunController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,6 +41,14 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin'])->get('/admin', function () {
     return view('pages.dashboard');
 });
+
+    Route::get('/akun', [DaftarAkunController::class, 'index'])->name('akun.index');
+    Route::get('/akun/create', [DaftarAkunController::class, 'create'])->name('akun.create');
+    Route::post('/akun', [DaftarAkunController::class, 'store'])->name('akun.store');
+    Route::get('/akun/{id}/edit', [DaftarAkunController::class, 'edit'])->name('akun.edit');
+    Route::put('/akun/{id}', [DaftarAkunController::class, 'update'])->name('akun.update');
+    Route::delete('/akun/{id}', [DaftarAkunController::class, 'destroy'])->name('akun.destroy');
+
 
 Route::middleware(['auth', 'role:pengajar'])->get('/pengajar', function () {
     return view('pages.dashboard');
